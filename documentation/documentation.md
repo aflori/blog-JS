@@ -33,3 +33,7 @@ Chaque dossier contient des informations sur le projet:
 + getArticleJoke(jokeQuestion) -> prend en paramètre la blague (chaine de caractère) du feed et retourne l'objet DOM associé
 
 + getArticleAnswer(jokeAnswer) -> prend en paramètre la réponse de la blague (chaine de caractère) du feed et retourne l'objet DOM associé
+
++ EcrireArticle(Database, IdStart) -> écrit dans le DOM sous la balise qui contient l'ID IdStart (chaîne de caractère) les articles de la base de donnée (API - Object Réponse)
+
++ articlesIndex() -> appel EcrireArticle avec les paramètres "standards" pour le feed.
