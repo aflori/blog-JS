@@ -13,7 +13,7 @@
         <a href="Jeux.html">Jeux</a>
     </header>
     <main>
-        <section class="fondBleu formCreateArticle">
+        <section class="formCreateArticle">
             <label>
                 Titre de l'article:
                 <br>
@@ -29,6 +29,9 @@
             <button type="button" class="formCreateArticle_buttonPosition">Créer l'article</button>
         </section>
         <h1>Les articles du blog:</h1>
+        <button onclick="actualiserArticle()">
+            Reactualiser les blagues
+        </button>
         <section id="feed">
         </section>
     </main>
@@ -37,7 +40,8 @@
     </footer>
     <script src="javascript/scriptDeLaPage.js"></script>
     <script>
-        articlesIndex();
+        mesArticles = articlesIndex();
+        // removeFromArray(mesArticles);
     </script>
 </body>
 </html>
