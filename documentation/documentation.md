@@ -18,3 +18,10 @@ Chaque dossier contient des informations sur le projet:
 4. Dans le dossier javascript, on y retrouve tous les script
 5. Dans le dossier template, on y retrouve tout ce qui est lié aux donnée de base (fichier JSON, ...)
 6. Dans le dossier documentation, on y retrouve la documentation avec ce fichier et le wireframe (maquette de début de projet des différentes pages)
+
+
+## Les fonctions des scripts JS
+
+### Fonctions lié à la mise à jour 1:
+
++ recupApiJoke() -> La fonction ne prend pas de paramètre et retourne un objet _Promise_ contenant une API de 10 blagues.
