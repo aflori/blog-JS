@@ -7,31 +7,39 @@
     <link href="CSS/feuille_de_style.css" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="header">
         <a href="index.html">Accueil</a>
         <a href="Gallery.html">Gallerie</a>
         <a href="Jeux.html">Jeux</a>
     </header>
     <main>
-        <section>
-            <img src="image/carrousel.jpg" alt="Image statique en attendant le carrousel">
+        <section class="gallerie_carrouselPadding">
+            <!-- <center> -->
+                <img class="gallerie_carrouselPadding_imgSize" src="image/carrousel.jpg" alt="Image statique en attendant le carrousel">
+            <!-- </center> -->
         </section>
         
-        <h1> Nos images </h1>
+        <h1 class="gallerie_title"> Nos images </h1>
 
-        <section>
-            <img src="image/affichage galerie.jpg" alt="Icone pour afficher les images en mode galerie">
-            <img src="image/affichage liste.jpg" alt="Icone pour afficher les images en mode liste">
-            <img src="image/image basique.jpg" alt="Image classique">
-            <img src="image/image basique.jpg" alt="Image classique">
-            <img src="image/image basique.jpg" alt="Image classique">
-            <img src="image/image basique.jpg" alt="Image classique">
-            <img src="image/image basique.jpg" alt="Image classique">
-            <img src="image/plus.jpg" alt="Ajouter une image">
+        <section class="gallerie_imageDisplay">
+            <div class="gallerie_imageDisplay_imgPresentation">
+                <img class="gallerie_imageDisplay_imgPresentation_1" src="image/affichage galerie.jpg" alt="Icone pour afficher les images en mode galerie">
+                <img class="gallerie_imageDisplay_imgPresentation_2" src="image/affichage liste.jpg" alt="Icone pour afficher les images en mode liste">
+            </div>
+            <div class="gallerie_imageDisplay_mosaic">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+            </div>
+            <div>
+                <img src="image/plus.jpg" alt="Ajouter une image">
+            </div>
         </section>
     </main>
-    <footer>
-        <p>Projet du <a href="https://le-campus-numerique.fr/">Campus numérique</a> ( <a href="https://github.com/aflori/blog-JS">détails ici</a> )</p>
+    <footer class="footer">
+        <p class="footer_margin">Projet du <a href="https://le-campus-numerique.fr/">Campus numérique</a> ( <a href="https://github.com/aflori/blog-JS">détails ici</a> )</p>
     </footer>
 </body>
 </html>
