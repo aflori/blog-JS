@@ -38,6 +38,8 @@ body {
 
 .fondBleu {
     background-color: #70A9FF;
+    min-height: 25px;
+    border: solid black;
 }
 
 .gallerie_carrouselPadding{
