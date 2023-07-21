@@ -36,26 +36,47 @@ function createArticle(position, articleContent)
 
 
     divTotal.className="fondBleu";
-    divTotal.id = "feedArticle";
+    // divTotal.id = `feedArticle_${numeroArticle}`;
     // console.log(articleContent)
 
     divTotal.appendChild(getArticleJoke(articleContent.setup))
     divTotal.appendChild(getArticleAnswer(articleContent.delivery))
     divTotal.appendChild(getDeleteArticleButton());
 
+    return divTotal
+
 }
 
 function EcrireArticle(Database, IdStart)
 {
     const feed = document.getElementById(IdStart);
-    Database.then( function(datas) {
-        datas.jokes.forEach((jokesData) =>
-            createArticle(feed, jokesData)
-        );
+    return Database.then( function(datas) {
+        articleList = [];
+        for(let i=0; i< datas.jokes.length; i++)
+        {
+            articleList.push(createArticle(feed, datas.jokes[i],i));
+        }
+        return articleList;
     });
 }
 
 function articlesIndex()
 {
-    EcrireArticle(recupApiJoke(),"feed");
+    return EcrireArticle(recupApiJoke(),"feed");
+}
+
+function removeFromArray(articles)
+{
+    console.log(articles)
+    articles.then( (datas) =>
+        {
+            datas.forEach((article) => { article.remove() })
+        } 
+    );
+}
+
+function actualiserArticle()
+{
+    removeFromArray(mesArticles);
+    mesArticles = articlesIndex();
 }
