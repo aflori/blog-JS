@@ -22,11 +22,11 @@ Chaque dossier contient des informations sur le projet:
 
 ## Les fonctions des scripts JS
 
-### Fonctions lié à la mise à jour 1:
+### Fonctions lié à la mise à jour 1.x:
 
 + recupApiJoke() -> La fonction ne prend pas de paramètre et retourne un objet _Promise_ contenant une API de 10 blagues.
 
-+ createArticle(position, articleContent) -> la fonction prend une position DOM, et un objet décrivant le contenu d'une blague et l'ajoute en format HTML en tant que fils de la position avec l'ID "feedArticle". Ne retourne rien.
++ createArticle(position, articleContent) -> la fonction prend une position DOM, et un objet décrivant le contenu d'une blague et l'ajoute en format HTML en tant que fils de la position avec l'ID "feedArticle". Retourne le bloc HTML rajouté.
 
 + getDeleteArticleButton() -> ne prend rien en argument et retourne un objet DOM contenant un bouton "effacer".
 
@@ -34,6 +34,10 @@ Chaque dossier contient des informations sur le projet:
 
 + getArticleAnswer(jokeAnswer) -> prend en paramètre la réponse de la blague (chaine de caractère) du feed et retourne l'objet DOM associé
 
-+ EcrireArticle(Database, IdStart) -> écrit dans le DOM sous la balise qui contient l'ID IdStart (chaîne de caractère) les articles de la base de donnée (API - Object Réponse)
++ EcrireArticle(Database, IdStart) -> écrit dans le DOM sous la balise qui contient l'ID IdStart (chaîne de caractère) les articles de la base de donnée (API - Object Réponse) puis renvoie la liste des articles écrit dans un objet Réponse
 
 + articlesIndex() -> appel EcrireArticle avec les paramètres "standards" pour le feed.
+
++ emoveFromArray(articles) -> retire de la page les éléments de la liste articles (stoqué dans un objet Réponse)
+
++ actualiserArticle() -> supprime les articles de la page pour pouvoir les réécrire en utilisant la variable global (merci à l'évènementielle) "mesArticles" qui regroupe tous les articles écrit dynamiquement dans la page.

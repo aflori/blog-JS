@@ -36,8 +36,6 @@ function createArticle(position, articleContent)
 
 
     divTotal.className="fondBleu";
-    // divTotal.id = `feedArticle_${numeroArticle}`;
-    // console.log(articleContent)
 
     divTotal.appendChild(getArticleJoke(articleContent.setup))
     divTotal.appendChild(getArticleAnswer(articleContent.delivery))
