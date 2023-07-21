@@ -1,0 +1,101 @@
+body {
+    margin:0;
+
+}
+.header {
+    background-color: #96F6BD;
+    min-height: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer {
+    background-color: #46B12B;
+    min-height: 3rem;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+.footer_margin {
+    margin-bottom: 5px;
+}
+
+.formCreateArticle {
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.formCreateArticle_texteareaSize {
+    min-height: 80px;
+    min-width: 325px;
+}
+
+.fondBleu {
+    background-color: #70A9FF;
+}
+
+.gallerie_carrouselPadding{
+    padding: 15px;
+    text-align: center;
+}
+
+.gallerie_carrouselPadding_imgSize {
+    max-width:100vw;
+}
+
+.gallerie_title {
+    text-align: center;
+}
+
+.gallerie_imageDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.gallerie_imageDisplay_imgPresentation {
+    min-width: 100vw;
+    display: grid;
+    grid-template-columns: 5fr 19px 1fr 19px 5fr;
+    padding-bottom: 5px;
+}
+.gallerie_imageDisplay_imgPresentation_1 {
+    grid-column: 2/3 ;
+}
+
+.gallerie_imageDisplay_imgPresentation_2 {
+    grid-column: 4/5 ;
+}
+
+.gallerie_imageDisplay_mosaic {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 550px;
+    align-items: space-between;
+}
+.gallerie_imageDisplay_mosaic img {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.jeu_gameType {
+    margin: 35px;
+}
+
+.jeu_gameType_title {
+    display: flex;
+    width: fit-content;
+    border-bottom: solid #000 2px;
+}
+.jeu_gameType_game {
+    background-color: #70A9FF;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 1fr;
+}
