@@ -25,3 +25,11 @@ Chaque dossier contient des informations sur le projet:
 ### Fonctions lié à la mise à jour 1:
 
 + recupApiJoke() -> La fonction ne prend pas de paramètre et retourne un objet _Promise_ contenant une API de 10 blagues.
+
++ createArticle(position, articleContent) -> la fonction prend une position DOM, et un objet décrivant le contenu d'une blague et l'ajoute en format HTML en tant que fils de la position avec l'ID "feedArticle". Ne retourne rien.
+
++ getDeleteArticleButton() -> ne prend rien en argument et retourne un objet DOM contenant un bouton "effacer".
+
++ getArticleJoke(jokeQuestion) -> prend en paramètre la blague (chaine de caractère) du feed et retourne l'objet DOM associé
+
++ getArticleAnswer(jokeAnswer) -> prend en paramètre la réponse de la blague (chaine de caractère) du feed et retourne l'objet DOM associé
