@@ -37,7 +37,7 @@ function createArticle(position, articleContent)
 
     divTotal.className="fondBleu";
     divTotal.id = "feedArticle";
-    console.log(articleContent)
+    // console.log(articleContent)
 
     divTotal.appendChild(getArticleJoke(articleContent.setup))
     divTotal.appendChild(getArticleAnswer(articleContent.delivery))
@@ -45,9 +45,17 @@ function createArticle(position, articleContent)
 
 }
 
+function EcrireArticle(Database, IdStart)
+{
+    const feed = document.getElementById(IdStart);
+    Database.then( function(datas) {
+        datas.jokes.forEach((jokesData) =>
+            createArticle(feed, jokesData)
+        );
+    });
+}
 
-let toto = recupApiJoke()
-const feed = document.getElementById("feed");
-toto.then( function(datas) {
-    createArticle(feed, datas.jokes[0])
-});
+function articlesIndex()
+{
+    EcrireArticle(recupApiJoke(),"feed");
+}
