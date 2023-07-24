@@ -103,12 +103,15 @@ function onArticleAdd(formTag){
 
     articleTitle = articleTitle.children[1];
     articleContent = articleContent.children[1];
-
+/*
     articleTitle = articleTitle.value;
     articleContent = articleContent.value;
-
-    console.log(articleTitle, articleContent)
+*/
+    const positionToInsert = document.getElementById("feed");
+    articleList.push(createArticle(positionToInsert,{type:"twopart", setup:articleTitle.value, delivery: articleContent.value}));
     
+    articleTitle.value = "";
+    articleContent.value = "";
 }
 
 
