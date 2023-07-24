@@ -1,5 +1,7 @@
 # Les conventions d'écriture du dépôt
 
+accès à la page [ici](https://aflori.github.io/blog-JS/)
+
 ## Les commits
 
 Les commits sont réalisé sous la forme
