@@ -1,6 +1,7 @@
-function recupApiJoke()
+async function recupApiJoke()
 {
-    return fetch("https://v2.jokeapi.dev/joke/Any?lang=fr&amount=10").then((data) => data.json());
+    const data = await fetch("https://v2.jokeapi.dev/joke/Any?lang=fr&amount=10");
+    return await data.json();
 }
 
 function getDeleteArticleButton()
@@ -78,3 +79,22 @@ function actualiserArticle()
     removeFromArray(mesArticles);
     mesArticles = articlesIndex();
 }
+
+function headerMenuHover(hasToShow)
+{
+    const elementToShow = document.getElementById("header_links");
+    if(hasToShow)
+    {
+        elementToShow.classList.remove("header_hidden")
+    }
+    else
+    {
+        elementToShow.classList.add("header_hidden")
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event)=> {
+    const el = document.getElementById("dynamicMenue");
+    el.addEventListener("mouseover", (el) => headerMenuHover(true));
+    el.addEventListener('mouseout', (el) => headerMenuHover(false));
+});
