@@ -93,8 +93,54 @@ function headerMenuHover(hasToShow)
     }
 }
 
+function getImgInformation(pokemonObject)
+{
+    const sprites = pokemonObject.sprites
+    return {
+        name: pokemonObject.name,
+        normalMale: {
+            front: sprites.front_default,
+            back: sprites.back_default
+        },
+        normalFemale: {
+            front: (sprites.back_female!==null?sprites.front_female:sprites.front_default) ,
+            back: (sprites.back_female!==null?sprites.back_female:sprites.back_default)
+        },
+        shinyMale: {
+            front: sprites.front_shiny,
+            back: sprites.back_shiny
+        },
+        shinyFemale: {
+            front: (sprites.front_shiny_female!== null? sprites.front_shiny_female : sprites.front_shiny),
+            back: (sprites.back_shiny_female!== null? sprites.back_shiny_female : sprites.back_shiny)
+        }
+    };
+}
+function initImgTab(data){
+    // console.log(data);
+    data.forEach((pokemon)=>{
+        fetch(pokemon.url).then(
+            rawData => rawData.json()
+        ).then(
+            pokemonData => galleryImage.push(getImgInformation(pokemonData))
+        )
+    })
+    console.log(galleryImage);
+}
+async function getImgList(){
+    const imgURL = "https://pokeapi.co/api/v2/pokemon/";
+    fetch(imgURL).then(
+        rawData => rawData.json()
+    ).then(
+        json => json.results
+    ).then(
+        dataArray => initImgTab(dataArray)
+    )
+}
+
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
     el.addEventListener('mouseout', (el) => headerMenuHover(false));
 });
+
