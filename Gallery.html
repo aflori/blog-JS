@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallerie</title>
     <link href="CSS/feuille_de_style.css" rel="stylesheet">
+    <script>
+        let galleryImage = [];
+    </script>
 </head>
 <body>
     <header class="header" id="dynamicMenue">
@@ -51,6 +54,9 @@
     <script src="javascript/scriptDeLaPage.js"></script>
     <script>
         
+        window.addEventListener("DOMContentLoaded", (event)=>
+            { getImgList(); }
+        );
     </script>
 </body>
 </html>
