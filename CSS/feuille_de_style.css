@@ -4,7 +4,7 @@ body {
 
 .header {
     background-color: #96F6BD;
-    min-height: 2.5rem;
+    /* min-height: 2.5rem; */
     /* text-align: center; */
     display: flex;
     flex-direction: column;
@@ -16,15 +16,21 @@ body {
 {
     border: solid #BFBFBF;
     width: min-content;
+    margin: 7px auto;
+}
+.header_menu:hover {
+    cursor: pointer;
 }
 .header_links {
-    /* text-align: center; */
     margin-top: 10px;
 
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 3px 1fr 3px 1fr;
     margin-bottom: 5px;
+}
+.header_hidden {
+    display: none;
 }
 .header_links_form {
     border: 2px solid #000;
