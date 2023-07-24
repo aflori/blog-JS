@@ -49,12 +49,17 @@
     <script>
         window.addEventListener("DOMContentLoaded", (e)=> {
 
-        mesArticles = articlesIndex();
+            mesArticles = articlesIndex();
 
-        const actualizeButton = document.getElementById("actualizeArticle");
-        actualizeButton.addEventListener("click",
+            const actualizeButton = document.getElementById("actualizeArticle");
+            actualizeButton.addEventListener("click",
                 (el) => {actualiserArticle()}
-                );
+            );
+            const createFormButton = document.getElementsByClassName("formCreateArticle_buttonPosition");
+            // console.log(createFormButton[0]);
+            createFormButton[0].addEventListener("click", (el) => {
+                onArticleAdd("formCreateArticle");
+            });
         });
     </script>
 </body>
