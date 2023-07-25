@@ -20,7 +20,7 @@
         </div>
     </header>
     <main>
-        <section class="formCreateArticle">
+        <form class="formCreateArticle">
             <label>
                 Titre de l'article:
                 <br>
@@ -33,8 +33,8 @@
                 <textarea class="formCreateArticle_texteareaSize"></textarea>
             </label>
             <br>
-            <button type="button" class="formCreateArticle_buttonPosition">Créer l'article</button>
-        </section>
+            <button type="submit" class="formCreateArticle_buttonPosition">Créer l'article</button>
+        </form>
         <h1>Les articles du blog:</h1>
         <button id="actualizeArticle" >
             Reactualiser les blagues
@@ -49,12 +49,18 @@
     <script>
         window.addEventListener("DOMContentLoaded", (e)=> {
 
-        mesArticles = articlesIndex();
+            mesArticles = articlesIndex();
 
-        const actualizeButton = document.getElementById("actualizeArticle");
-        actualizeButton.addEventListener("click",
+            const actualizeButton = document.getElementById("actualizeArticle");
+            actualizeButton.addEventListener("click",
                 (el) => {actualiserArticle()}
-                );
+            );
+            const createFormButton = document.getElementsByClassName("formCreateArticle_buttonPosition");
+            // console.log(createFormButton[0]);
+            createFormButton[0].addEventListener("click", (event) => {
+                event.preventDefault();
+                onArticleAdd("formCreateArticle");
+            });
         });
     </script>
 </body>

@@ -222,7 +222,28 @@ function setModeViewColumn()
     viewDiv.className = "gallerie_imageDisplay_column";
 }
 
-//header informationS
+//header informations
+function onArticleAdd(formTag){
+    const formContent = document.getElementsByClassName(formTag)[0];
+
+    const formParameter = formContent.children
+
+    let articleTitle = formParameter[0];
+    let articleContent = formParameter[2];
+
+    articleTitle = articleTitle.children[1];
+    articleContent = articleContent.children[1];
+/*
+    articleTitle = articleTitle.value;
+    articleContent = articleContent.value;
+*/
+    const positionToInsert = document.getElementById("feed");
+    articleList.push(createArticle(positionToInsert,{type:"twopart", setup:articleTitle.value, delivery: articleContent.value}));
+    
+    articleTitle.value = "";
+    articleContent.value = "";
+}
+
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
