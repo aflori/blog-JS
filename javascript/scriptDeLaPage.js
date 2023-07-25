@@ -4,6 +4,11 @@ async function recupApiJoke()
     return await data.json();
 }
 
+function getRandomInt(numberMax)
+{
+    return Math.floor(Math.random()*numberMax);
+}
+
 function getDeleteArticleButton()
 {
     const buttonObject = document.createElement('button');
@@ -66,7 +71,7 @@ function articlesIndex()
 
 function removeFromArray(articles)
 {
-    console.log(articles)
+    // console.log(articles)
     articles.then( (datas) =>
         {
             datas.forEach((article) => { article.remove() })
@@ -85,11 +90,11 @@ function headerMenuHover(hasToShow)
     const elementToShow = document.getElementById("header_links");
     if(hasToShow)
     {
-        elementToShow.classList.remove("header_hidden")
+        elementToShow.classList.toggle("header_hidden")
     }
     else
     {
-        elementToShow.classList.add("header_hidden")
+         elementToShow.classList.add("header_hidden")
     }
 }
 
@@ -118,19 +123,115 @@ function getImgInformation(pokemonObject)
         type: {
             type1: pokemonObject.types[0].type.name,
             type2: (pokemonObject.types.length==2?pokemonObject.types[1].type.name:null)
-        }
+        },
+        htmlTag: null
     };
 }
-function initImgTab(data){
+
+   /*
+
+async function initImgTabEtHtml(data)
+{
     // console.log(data);
-    data.forEach((pokemon)=>{
-        fetch(pokemon.url).then(
-            rawData => rawData.json()
-        ).then(
-            pokemonData => galleryImage.push(getImgInformation(pokemonData))
-        )
-    })
-    console.log(galleryImage);
+
+    await Promise.all(data.map(pokemon => fetch(pokemon.url))).then(
+        rawArray => {
+            rawArray.forEach(
+                rawPromise =>
+                {
+                    console.log(rawPromise.json())
+                }
+            )
+            
+        }
+    )
+    console.log(galleryImage)
+
+    galleryImage.forEach(
+        element => console.log("TOTO")
+    )
+}
+
+function createImgInDocument()
+{
+    const parentTag = document.getElementById("imageGalerie");
+    // console.log(galleryImage);
+    galleryImage.forEach(
+        (imgData) => 
+        // for(let i=0; i<20;i++)
+        {
+            // const imgData = galleryImage[i];
+            console.log("OK");
+            if(imgData.htmlTag !== null) return ;
+
+            const isShiny = (getRandomInt(256)>=255);
+            const sexeToPrint = (getRandomInt(2)==0?"male":"female");
+
+            const sprite = (isShiny?
+                {"male":imgData.shinyMale, "female":imgData.shinyFemale}:
+                {"male":imgData.normalMale, "female":imgData.normalFemale}
+            );
+            const htmlImg = getImgFromURL(sprite[sexeToPrint], imgData.name);
+            parentTag.appendChild(htmlImg);
+            imgData.htmlTag = htmlImg;
+        }
+    )
+}
+*/
+function createImgTag(href, name)
+{
+    const newTag = document.createElement("img");
+    newTag.src = href;
+    newTag.alt = name;
+
+    return newTag
+}
+
+function getHTMLTag(data) {
+    const isShiny = (getRandomInt(256)>=255);
+
+    const imgSprite = {
+        male : (isShiny?data.shinyMale:data.normalMale),
+        female : (isShiny?data.shinyFemale:data.normalFemale)
+    }
+
+    const isMale = (getRandomInt(2)===0);
+    // console.log(imgSprite);
+    const tag = createImgTag((isMale?imgSprite.male:imgSprite.female).front,data.name);
+    // console.log(tag);
+    return tag;
+}
+
+function createImgAndHtml(data)
+{
+    // console.log(data);
+    const parentTag = document.getElementById("imageGalerie");
+    galleryImage = [];
+
+    Promise.all( data.map(pokemon => fetch(pokemon.url))).then( arrayPokemon =>
+    {
+        cleanHTML(parentTag);
+        arrayPokemon.forEach(pokemonResponse =>
+        {
+            pokemonResponse.json().then(pokemon =>
+            {
+                const pokeData = getImgInformation(pokemon);
+                // console.log(pokeData);
+                pokeData.htmlTag = getHTMLTag(pokeData);
+                parentTag.appendChild(pokeData.htmlTag);
+            });
+        });
+    });
+}
+
+function cleanHTML(htmlTag)
+{
+    let child = htmlTag.firstElementChild;
+    while(child!==null)
+    {
+        htmlTag.removeChild(child);
+        child = htmlTag.firstElementChild;
+    }
 }
 async function getImgList(){
     const imgURL = "https://pokeapi.co/api/v2/pokemon/";
@@ -139,10 +240,13 @@ async function getImgList(){
     ).then(
         json => json.results
     ).then(
-        dataArray => initImgTab(dataArray)
-    )
+        dataArray => {
+            createImgAndHtml(dataArray);
+        }
+    );
 }
 
+//header informationS
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
