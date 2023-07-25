@@ -246,6 +246,17 @@ async function getImgList(){
     );
 }
 
+function setModeViewMosaic()
+{
+    const viewDiv = document.querySelector("div#imageGalerie");
+    viewDiv.className = "gallerie_imageDisplay_mosaic";
+}
+function setModeViewColumn()
+{
+    const viewDiv = document.querySelector("div#imageGalerie");
+    viewDiv.className = "gallerie_imageDisplay_column";
+}
+
 //header informationS
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
@@ -253,3 +264,9 @@ window.addEventListener("DOMContentLoaded", (event)=> {
     el.addEventListener('mouseout', (el) => headerMenuHover(false));
 });
 
+function setGaleryListener(){
+    const buttonViewModeMosaic = document.querySelector("img.gallerie_imageDisplay_imgPresentation_1");
+    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
+    buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
+    buttonViewModeColumn.addEventListener("click", setModeViewColumn);
+}
