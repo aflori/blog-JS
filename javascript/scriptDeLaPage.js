@@ -128,56 +128,6 @@ function getImgInformation(pokemonObject)
     };
 }
 
-   /*
-
-async function initImgTabEtHtml(data)
-{
-    // console.log(data);
-
-    await Promise.all(data.map(pokemon => fetch(pokemon.url))).then(
-        rawArray => {
-            rawArray.forEach(
-                rawPromise =>
-                {
-                    console.log(rawPromise.json())
-                }
-            )
-            
-        }
-    )
-    console.log(galleryImage)
-
-    galleryImage.forEach(
-        element => console.log("TOTO")
-    )
-}
-
-function createImgInDocument()
-{
-    const parentTag = document.getElementById("imageGalerie");
-    // console.log(galleryImage);
-    galleryImage.forEach(
-        (imgData) => 
-        // for(let i=0; i<20;i++)
-        {
-            // const imgData = galleryImage[i];
-            console.log("OK");
-            if(imgData.htmlTag !== null) return ;
-
-            const isShiny = (getRandomInt(256)>=255);
-            const sexeToPrint = (getRandomInt(2)==0?"male":"female");
-
-            const sprite = (isShiny?
-                {"male":imgData.shinyMale, "female":imgData.shinyFemale}:
-                {"male":imgData.normalMale, "female":imgData.normalFemale}
-            );
-            const htmlImg = getImgFromURL(sprite[sexeToPrint], imgData.name);
-            parentTag.appendChild(htmlImg);
-            imgData.htmlTag = htmlImg;
-        }
-    )
-}
-*/
 function createImgTag(href, name)
 {
     const newTag = document.createElement("img");
