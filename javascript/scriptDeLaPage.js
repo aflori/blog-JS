@@ -96,6 +96,7 @@ function headerMenuHover(hasToShow)
 function getImgInformation(pokemonObject)
 {
     const sprites = pokemonObject.sprites
+    // console.log(pokemonObject);
     return {
         name: pokemonObject.name,
         normalMale: {
@@ -113,6 +114,10 @@ function getImgInformation(pokemonObject)
         shinyFemale: {
             front: (sprites.front_shiny_female!== null? sprites.front_shiny_female : sprites.front_shiny),
             back: (sprites.back_shiny_female!== null? sprites.back_shiny_female : sprites.back_shiny)
+        },
+        type: {
+            type1: pokemonObject.types[0].type.name,
+            type2: (pokemonObject.types.length==2?pokemonObject.types[1].type.name:null)
         }
     };
 }
