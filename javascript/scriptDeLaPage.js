@@ -130,15 +130,30 @@ function getImgInformation(pokemonObject)
 
 function createImgTag(href, name)
 {
-    const newTag = document.createElement("img");
-    newTag.src = href;
-    newTag.alt = name;
+    const newTag = document.createElement("div");
+    const imgFront = document.createElement("img");
+    const imgBack = document.createElement("img");
+
+    newTag.appendChild(imgFront);
+    newTag.appendChild(imgBack);
+    imgFront.src = href.front;
+    imgFront.alt = name;
+    imgBack.src = href.back;
+    imgBack.alt = name;
+    imgBack.className = "hidden";
+
+    newTag.addEventListener("click", tag =>{
+        const divToSwitch = tag.target.parentNode;
+        const children = divToSwitch.children;
+        children[0].classList.toggle("hidden");
+        children[1].classList.toggle("hidden");
+    })
 
     return newTag
 }
 
 function getHTMLTag(data) {
-    const isShiny = (getRandomInt(256)>=255);
+    const isShiny = (getRandomInt(128)>=127);
 
     const imgSprite = {
         male : (isShiny?data.shinyMale:data.normalMale),
@@ -147,7 +162,7 @@ function getHTMLTag(data) {
 
     const isMale = (getRandomInt(2)===0);
     // console.log(imgSprite);
-    const tag = createImgTag((isMale?imgSprite.male:imgSprite.female).front,data.name);
+    const tag = createImgTag((isMale?imgSprite.male:imgSprite.female),data.name);
     // console.log(tag);
     return tag;
 }
