@@ -109,12 +109,15 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    max-width: 550px;
-    align-items: space-between;
+    max-width: 70%;
 }
 .gallerie_imageDisplay_mosaic img {
     padding-top: 13px;
     padding-bottom: 13px;
+}
+.gallerie_imageDisplay_column {
+    width: min-content;
+    margin: 0 auto;
 }
 
 .jeu_gameType {
@@ -132,3 +135,7 @@ body {
     grid-template-columns: 10% 10% 10% 1fr;
 }
 
+
+.hidden {
+    display: none;
+}

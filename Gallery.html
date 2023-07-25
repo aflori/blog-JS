@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallerie</title>
     <link href="CSS/feuille_de_style.css" rel="stylesheet">
+    <script>
+        let galleryImage = [];
+    </script>
 </head>
 <body>
     <header class="header" id="dynamicMenue">
@@ -33,7 +36,7 @@
                 <img class="gallerie_imageDisplay_imgPresentation_1" src="image/affichage galerie.jpg" alt="Icone pour afficher les images en mode galerie">
                 <img class="gallerie_imageDisplay_imgPresentation_2" src="image/affichage liste.jpg" alt="Icone pour afficher les images en mode liste">
             </div>
-            <div class="gallerie_imageDisplay_mosaic">
+            <div class="gallerie_imageDisplay_mosaic" id="imageGalerie">
                 <img src="image/image basique.jpg" alt="Image classique">
                 <img src="image/image basique.jpg" alt="Image classique">
                 <img src="image/image basique.jpg" alt="Image classique">
@@ -51,6 +54,11 @@
     <script src="javascript/scriptDeLaPage.js"></script>
     <script>
         
+        window.addEventListener("DOMContentLoaded", (event)=>
+            { getImgList();
+              setGaleryListener();
+            }
+        );
     </script>
 </body>
 </html>

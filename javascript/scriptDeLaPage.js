@@ -4,6 +4,11 @@ async function recupApiJoke()
     return await data.json();
 }
 
+function getRandomInt(numberMax)
+{
+    return Math.floor(Math.random()*numberMax);
+}
+
 function getDeleteArticleButton()
 {
     const buttonObject = document.createElement('button');
@@ -66,7 +71,7 @@ function articlesIndex()
 
 function removeFromArray(articles)
 {
-    console.log(articles)
+    // console.log(articles)
     articles.then( (datas) =>
         {
             datas.forEach((article) => { article.remove() })
@@ -85,14 +90,139 @@ function headerMenuHover(hasToShow)
     const elementToShow = document.getElementById("header_links");
     if(hasToShow)
     {
-        elementToShow.classList.remove("header_hidden")
+        elementToShow.classList.toggle("header_hidden")
     }
     else
     {
-        elementToShow.classList.add("header_hidden")
+         elementToShow.classList.add("header_hidden")
     }
 }
 
+function getImgInformation(pokemonObject)
+{
+    const sprites = pokemonObject.sprites
+    // console.log(pokemonObject);
+    return {
+        name: pokemonObject.name,
+        normalMale: {
+            front: sprites.front_default,
+            back: sprites.back_default
+        },
+        normalFemale: {
+            front: (sprites.back_female!==null?sprites.front_female:sprites.front_default) ,
+            back: (sprites.back_female!==null?sprites.back_female:sprites.back_default)
+        },
+        shinyMale: {
+            front: sprites.front_shiny,
+            back: sprites.back_shiny
+        },
+        shinyFemale: {
+            front: (sprites.front_shiny_female!== null? sprites.front_shiny_female : sprites.front_shiny),
+            back: (sprites.back_shiny_female!== null? sprites.back_shiny_female : sprites.back_shiny)
+        },
+        type: {
+            type1: pokemonObject.types[0].type.name,
+            type2: (pokemonObject.types.length==2?pokemonObject.types[1].type.name:null)
+        },
+        htmlTag: null
+    };
+}
+
+function createImgTag(href, name)
+{
+    const newTag = document.createElement("div");
+    const imgFront = document.createElement("img");
+    const imgBack = document.createElement("img");
+
+    newTag.appendChild(imgFront);
+    newTag.appendChild(imgBack);
+    imgFront.src = href.front;
+    imgFront.alt = name;
+    imgBack.src = href.back;
+    imgBack.alt = name;
+    imgBack.className = "hidden";
+
+    newTag.addEventListener("click", tag =>{
+        const divToSwitch = tag.target.parentNode;
+        const children = divToSwitch.children;
+        children[0].classList.toggle("hidden");
+        children[1].classList.toggle("hidden");
+    })
+
+    return newTag
+}
+
+function getHTMLTag(data) {
+    const isShiny = (getRandomInt(128)>=127);
+
+    const imgSprite = {
+        male : (isShiny?data.shinyMale:data.normalMale),
+        female : (isShiny?data.shinyFemale:data.normalFemale)
+    }
+
+    const isMale = (getRandomInt(2)===0);
+    // console.log(imgSprite);
+    const tag = createImgTag((isMale?imgSprite.male:imgSprite.female),data.name);
+    // console.log(tag);
+    return tag;
+}
+
+function createImgAndHtml(data)
+{
+    // console.log(data);
+    const parentTag = document.getElementById("imageGalerie");
+    galleryImage = [];
+
+    Promise.all( data.map(pokemon => fetch(pokemon.url))).then( arrayPokemon =>
+    {
+        cleanHTML(parentTag);
+        arrayPokemon.forEach(pokemonResponse =>
+        {
+            pokemonResponse.json().then(pokemon =>
+            {
+                const pokeData = getImgInformation(pokemon);
+                // console.log(pokeData);
+                pokeData.htmlTag = getHTMLTag(pokeData);
+                parentTag.appendChild(pokeData.htmlTag);
+            });
+        });
+    });
+}
+
+function cleanHTML(htmlTag)
+{
+    let child = htmlTag.firstElementChild;
+    while(child!==null)
+    {
+        htmlTag.removeChild(child);
+        child = htmlTag.firstElementChild;
+    }
+}
+async function getImgList(){
+    const imgURL = "https://pokeapi.co/api/v2/pokemon/";
+    fetch(imgURL).then(
+        rawData => rawData.json()
+    ).then(
+        json => json.results
+    ).then(
+        dataArray => {
+            createImgAndHtml(dataArray);
+        }
+    );
+}
+
+function setModeViewMosaic()
+{
+    const viewDiv = document.querySelector("div#imageGalerie");
+    viewDiv.className = "gallerie_imageDisplay_mosaic";
+}
+function setModeViewColumn()
+{
+    const viewDiv = document.querySelector("div#imageGalerie");
+    viewDiv.className = "gallerie_imageDisplay_column";
+}
+
+//header informations
 function onArticleAdd(formTag){
     const formContent = document.getElementsByClassName(formTag)[0];
 
@@ -114,9 +244,15 @@ function onArticleAdd(formTag){
     articleContent.value = "";
 }
 
-
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
     el.addEventListener('mouseout', (el) => headerMenuHover(false));
 });
+
+function setGaleryListener(){
+    const buttonViewModeMosaic = document.querySelector("img.gallerie_imageDisplay_imgPresentation_1");
+    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
+    buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
+    buttonViewModeColumn.addEventListener("click", setModeViewColumn);
+}
