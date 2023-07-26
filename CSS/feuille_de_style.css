@@ -123,6 +123,9 @@ body {
     width: min-content;
     margin: 0 auto;
 }
+.gallerie_imageDisplay_centered {
+    text-align: center;
+}
 
 .jeu_gameType {
     margin: 35px;
