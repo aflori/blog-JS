@@ -115,6 +115,10 @@ body {
     padding-top: 13px;
     padding-bottom: 13px;
 }
+.gallerie_imageDisplay_custom_img {
+    display: flex;
+    flex-direction: column;
+}
 .gallerie_imageDisplay_column {
     width: min-content;
     margin: 0 auto;
