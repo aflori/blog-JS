@@ -312,14 +312,14 @@ function setGaleryListener(){
 function createCarrouselImg(imgArray, parentElement)
 {
     imgArray.forEach( (img)=> {
-        const newImage = getNewImgTag(img.src, img.alt);
-
+        const newImage = getNewImgTag(img.image, img.alt);
         parentElement.appendChild(newImage);
     })
 }
 function initCaroussel()
 {
     const apiImgLink = "https://www.digi-api.com/api/v1/digimon?pageSize=20";
+    
     const elementParent = document.querySelector("div.gallerie_carrouselPadding_img")
     cleanHTML(elementParent);
 
