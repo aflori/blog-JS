@@ -48,19 +48,10 @@
     <script src="javascript/scriptDeLaPage.js"></script>
     <script>
         window.addEventListener("DOMContentLoaded", (e)=> {
-
+            //write the jokes in the page
             mesArticles = articlesIndex();
-
-            const actualizeButton = document.getElementById("actualizeArticle");
-            actualizeButton.addEventListener("click",
-                (el) => {actualiserArticle()}
-            );
-            const createFormButton = document.getElementsByClassName("formCreateArticle_buttonPosition");
-            // console.log(createFormButton[0]);
-            createFormButton[0].addEventListener("click", (event) => {
-                event.preventDefault();
-                onArticleAdd("formCreateArticle");
-            });
+            //set different listener
+            setIndexListener();
         });
     </script>
 </body>

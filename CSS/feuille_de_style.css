@@ -118,6 +118,8 @@ body {
 .gallerie_imageDisplay_custom_img {
     display: flex;
     flex-direction: column;
+    width:fit-content;
+    margin: 0 auto;
 }
 .gallerie_imageDisplay_column {
     width: min-content;
