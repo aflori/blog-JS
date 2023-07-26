@@ -275,12 +275,18 @@ function onImgFormSent(event)
     event.preventDefault();
     const imgLinktag = document.querySelector("div.gallerie_imageDisplay_centered form label input");
     const imgLink = imgLinktag.value;
-    if(imgLink!== "")
+    const urlLinkFormat = /^https?:\/\/www./;
+    if(imgLink.match(urlLinkFormat))
     {
         const newImgTag=createImgCustomTag(imgLink);
         const tagParent = document.getElementById("imageGalerie");
         tagParent.appendChild(newImgTag);
+        imgLinktag.placeholder = ""
         galleryImage.push(newImgTag);
+    }
+    else
+    {
+        imgLinktag.placeholder = "Entrez une URL correct!";
     }
     imgLinktag.value = "";
 }
