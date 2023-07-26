@@ -87,7 +87,7 @@ function actualiserArticle()
 
 function headerMenuHover(hasToShow)
 {
-    elementToShow = document.querySelector("div#header_links")
+    const elementToShow = document.querySelector("div#header_links")
     if(hasToShow)
     {
         elementToShow.classList.remove("header_hidden")
