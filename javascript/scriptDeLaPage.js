@@ -151,8 +151,25 @@ function createImgTag(href, name)
 
     return newTag
 }
+function createImgCustomTag(href)
+{
+    const newTag = document.createElement("div");
+    const img = document.createElement("img");
+    const deleteButton = document.createElement("button");
 
-function getHTMLTag(data) {
+    newTag.appendChild(img);
+    newTag.appendChild(deleteButton);
+
+    newTag.className = "gallerie_imageDisplay_custom_img";
+    img.src = href;
+    img.alt = "image personalisé";
+    // deleteButton.addEventListener("click", A faire itération d'après)
+    deleteButton.textContent = "supprimé l'image";
+
+    return newTag;
+}
+
+function getHtmlImgTag(data) {
     const isShiny = (getRandomInt(128)>=127);
 
     const imgSprite = {
@@ -182,7 +199,7 @@ function createImgAndHtml(data)
             {
                 const pokeData = getImgInformation(pokemon);
                 // console.log(pokeData);
-                pokeData.htmlTag = getHTMLTag(pokeData);
+                pokeData.htmlTag = getHtmlImgTag(pokeData);
                 parentTag.appendChild(pokeData.htmlTag);
             });
         });
@@ -247,7 +264,14 @@ function onArticleAdd(formTag){
 function onGaleryAdd()
 {
     const imgLink = prompt("Entrez le lien vers l'image:", "image/image basique.jpg");
-    console.log("reçu " + imgLink);
+    // console.log("reçu " + imgLink);
+    if(imgLink!== null && imgLink!== "")
+    {
+        const newImgTag=createImgCustomTag(imgLink);
+        const tagParent = document.getElementById("imageGalerie");
+        tagParent.appendChild(newImgTag);
+
+    }
 }
 
 window.addEventListener("DOMContentLoaded", (event)=> {
