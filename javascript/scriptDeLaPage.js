@@ -32,7 +32,12 @@ function getArticleAnswer(jokeAnswer)
     elementText.appendChild(elementSmall);
     return elementText;
 }
-
+function getNewImgTag(src,name) {
+    const newImage = document.createElement("img");
+    newImage.src = src;
+    newImage.alt = name;
+    return newImage;
+}
 function createArticle(position, articleContent)
 {
     if(articleContent.type !== "twopart") return ;
@@ -131,16 +136,12 @@ function getImgInformation(pokemonObject)
 function createImgTag(href, name)
 {
     const newTag = document.createElement("div");
-    const imgFront = document.createElement("img");
-    const imgBack = document.createElement("img");
+    const imgFront = getNewImgTag(href.front,name);
+    const imgBack = getNewImgTag(href.back,name);
 
     newTag.appendChild(imgFront);
     newTag.appendChild(imgBack);
     newTag.style.textAlign = "center";
-    imgFront.src = href.front;
-    imgFront.alt = name;
-    imgBack.src = href.back;
-    imgBack.alt = name;
     imgBack.className = "hidden";
 
     newTag.addEventListener("click", tag =>{
@@ -155,7 +156,7 @@ function createImgTag(href, name)
 function createImgCustomTag(href)
 {
     const newTag = document.createElement("div");
-    const img = document.createElement("img");
+    const img = getNewImgTag(href,"image personalisé");
     const deleteButton = document.createElement("button");
 
     newTag.appendChild(img);
@@ -164,9 +165,7 @@ function createImgCustomTag(href)
     newTag.className = "gallerie_imageDisplay_custom_img";
     newTag.style.textAlign = "center";
     newTag.style.marginBottom = "10px";
-    img.src = href;
-    img.alt = "image personalisé";
-    // deleteButton.addEventListener("click", A faire itération d'après)
+    
     deleteButton.textContent = "supprimé l'image";
 
     return newTag;
@@ -219,7 +218,7 @@ function cleanHTML(htmlTag)
         child = htmlTag.firstElementChild;
     }
 }
-async function getImgList(){
+function getImgList(){
     const imgURL = "https://pokeapi.co/api/v2/pokemon/";
     fetch(imgURL).then(
         rawData => rawData.json()
@@ -309,6 +308,8 @@ function setGaleryListener(){
 
     const formSubmit = document.querySelector("form.hidden button");
     formSubmit.addEventListener("click", onImgFormSent)
+}
+    })
 }
 function initCaroussel()
 {
