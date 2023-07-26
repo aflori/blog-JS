@@ -136,6 +136,7 @@ function createImgTag(href, name)
 
     newTag.appendChild(imgFront);
     newTag.appendChild(imgBack);
+    newTag.style.textAlign = "center";
     imgFront.src = href.front;
     imgFront.alt = name;
     imgBack.src = href.back;
@@ -161,6 +162,8 @@ function createImgCustomTag(href)
     newTag.appendChild(deleteButton);
 
     newTag.className = "gallerie_imageDisplay_custom_img";
+    newTag.style.textAlign = "center";
+    newTag.style.marginBottom = "10px";
     img.src = href;
     img.alt = "image personalisé";
     // deleteButton.addEventListener("click", A faire itération d'après)
