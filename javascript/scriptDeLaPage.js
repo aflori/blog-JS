@@ -87,10 +87,10 @@ function actualiserArticle()
 
 function headerMenuHover(hasToShow)
 {
-    const elementToShow = document.getElementById("header_links");
+    elementToShow = document.querySelector("div#header_links")
     if(hasToShow)
     {
-        elementToShow.classList.toggle("header_hidden")
+        elementToShow.classList.remove("header_hidden")
     }
     else
     {
