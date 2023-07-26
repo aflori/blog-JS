@@ -253,6 +253,8 @@ window.addEventListener("DOMContentLoaded", (event)=> {
 function setGaleryListener(){
     const buttonViewModeMosaic = document.querySelector("img.gallerie_imageDisplay_imgPresentation_1");
     const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
+    const buttonAddImg = document.querySelector("img#imgPlus");
     buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
     buttonViewModeColumn.addEventListener("click", setModeViewColumn);
+    buttonAddImg.addEventListener("click", (ignore) => {console.log("plus !");});
 }
