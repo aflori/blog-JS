@@ -283,7 +283,7 @@ function onImgFormSent(event)
     event.preventDefault();
     const imgLinktag = document.querySelector("div.gallerie_imageDisplay_centered form label input");
     const imgLink = imgLinktag.value;
-    const urlLinkFormat = /^https?:\/\/www./;
+    const urlLinkFormat = /^https?:\/\//;
     if(imgLink.match(urlLinkFormat))
     {
         const newImgTag=createImgCustomTag(imgLink);
