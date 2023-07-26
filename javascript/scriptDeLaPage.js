@@ -309,9 +309,23 @@ function setGaleryListener(){
     const formSubmit = document.querySelector("form.hidden button");
     formSubmit.addEventListener("click", onImgFormSent)
 }
+function createCarrouselImg(imgArray, parentElement)
+{
+    imgArray.forEach( (img)=> {
+        const newImage = getNewImgTag(img.src, img.alt);
+
+        parentElement.appendChild(newImage);
     })
 }
 function initCaroussel()
 {
-    
+    const apiImgLink = "https://www.digi-api.com/api/v1/digimon?pageSize=20";
+    const elementParent = document.querySelector("div.gallerie_carrouselPadding_img")
+    cleanHTML(elementParent);
+
+    fetch(apiImgLink).then(
+        (element) => element.json()
+    ).then(
+        (dataArray) => createCarrouselImg(dataArray.content, elementParent)
+    )
 }
