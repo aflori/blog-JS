@@ -204,6 +204,7 @@ function createImgAndHtml(data)
                 // console.log(pokeData);
                 pokeData.htmlTag = getHtmlImgTag(pokeData);
                 parentTag.appendChild(pokeData.htmlTag);
+                galleryImage.push(pokeData.htmlTag);
             });
         });
     });
@@ -273,6 +274,7 @@ function onGaleryAdd()
         const newImgTag=createImgCustomTag(imgLink);
         const tagParent = document.getElementById("imageGalerie");
         tagParent.appendChild(newImgTag);
+        galleryImage.push(newImgTag);
 
     }
 }
