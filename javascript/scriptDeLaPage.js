@@ -290,6 +290,12 @@ function onImgFormSent(event)
     imgLinktag.value = "";
 }
 
+function onCarrouselChange(turnLeft, informationData)
+{
+    informationData.position += (turnLeft?1:-1);
+    console.log(informationData);
+}
+
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
@@ -307,7 +313,16 @@ function setGaleryListener(){
     buttonAddImg.addEventListener("click", onGaleryAdd);
 
     const formSubmit = document.querySelector("form.hidden button");
-    formSubmit.addEventListener("click", onImgFormSent)
+    formSubmit.addEventListener("click", onImgFormSent);
+
+    const listCarrousselButton = document.querySelectorAll("div.gallerie_carrouselPadding_buttons button");
+    const dataToCarroussel = {
+        parent: document.querySelector("div.gallerie_carrouselPadding_img"),
+        callToIgnore: 0,
+        position: 0
+    }
+    listCarrousselButton[0].addEventListener("click", ()=> onCarrouselChange(true, dataToCarroussel));
+    listCarrousselButton[1].addEventListener("click", ()=> onCarrouselChange(false, dataToCarroussel));
 }
 function createCarrouselImg(imgArray, parentElement)
 {
