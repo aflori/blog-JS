@@ -58,7 +58,7 @@ function EcrireArticle(Database, IdStart)
         articleList = [];
         for(let i=0; i< datas.jokes.length; i++)
         {
-            articleList.push(createArticle(feed, datas.jokes[i],i));
+            articleList.push(createArticle(feed, datas.jokes[i],false));
         }
         return articleList;
     });
@@ -309,4 +309,17 @@ function setGaleryListener(){
 
     const formSubmit = document.querySelector("form.hidden button");
     formSubmit.addEventListener("click", onImgFormSent)
+}
+
+function setIndexListener(){
+    const actualizeButton = document.getElementById("actualizeArticle");
+    actualizeButton.addEventListener("click",
+        (el) => {actualiserArticle()}
+    );
+    const createFormButton = document.getElementsByClassName("formCreateArticle_buttonPosition");
+    // console.log(createFormButton[0]);
+    createFormButton[0].addEventListener("click", (event) => {
+        event.preventDefault();
+        onArticleAdd("formCreateArticle");
+    });
 }
