@@ -244,6 +244,12 @@ function onArticleAdd(formTag){
     articleContent.value = "";
 }
 
+function onGaleryAdd()
+{
+    const imgLink = prompt("Entrez le lien vers l'image:", "image/image basique.jpg");
+    console.log("reçu " + imgLink);
+}
+
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
@@ -256,5 +262,5 @@ function setGaleryListener(){
     const buttonAddImg = document.querySelector("img#imgPlus");
     buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
     buttonViewModeColumn.addEventListener("click", setModeViewColumn);
-    buttonAddImg.addEventListener("click", (ignore) => {console.log("plus !");});
+    buttonAddImg.addEventListener("click", onGaleryAdd);
 }
