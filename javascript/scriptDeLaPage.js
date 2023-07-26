@@ -267,6 +267,7 @@ function onArticleAdd(formTag){
 
 function onGaleryAdd()
 {
+    /*
     const imgLink = prompt("Entrez le lien vers l'image:", "image/image basique.jpg");
     // console.log("reçu " + imgLink);
     if(imgLink!== null && imgLink!== "")
@@ -277,6 +278,9 @@ function onGaleryAdd()
         galleryImage.push(newImgTag);
 
     }
+    */
+    const formElement = document.querySelector("div.gallerie_imageDisplay_centered form");
+    formElement.classList.toggle("hidden")
 }
 
 window.addEventListener("DOMContentLoaded", (event)=> {
