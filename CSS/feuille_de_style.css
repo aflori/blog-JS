@@ -75,10 +75,34 @@ body {
 .gallerie_carrouselPadding{
     padding: 15px;
     text-align: center;
+    /* position: relative; */
 }
 
-.gallerie_carrouselPadding_imgSize {
-    max-width:90vw;
+.gallerie_carrouselPadding_img {
+    max-width: 600px;
+    display: flex;
+    overflow: hidden;
+    margin: auto;
+}
+
+.gallerie_carrouselPadding_img img {
+    width: 150px;
+    height: 150px;
+    margin: 0 15px;
+    position: relative;
+    right: 510px;
+
+}
+.gallerie_carrouselPadding_buttons {
+    display: grid;
+    grid-template-columns: 40% 1fr 10% 1fr 40%;
+    padding-top: 7px;
+}
+.gallerie_carrouselPadding_buttons button:first-child {
+    grid-column: 2/3;
+}
+.gallerie_carrouselPadding_buttons button:last-child {
+    grid-column: 4/5;
 }
 
 .gallerie_title {
