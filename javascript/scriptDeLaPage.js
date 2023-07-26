@@ -15,7 +15,7 @@ function getDeleteArticleButton()
     buttonObject.textContent = "effacer l'article";
 
     buttonObject.addEventListener("click", (element) => {
-        deletepost(element.target.parentNode, "post");
+        onDeletePost(element.target.parentNode, "post");
     })
 
     return buttonObject;
@@ -173,7 +173,7 @@ function createImgCustomTag(href)
     img.src = href;
     img.alt = "image personalisé";
 
-    deleteButton.addEventListener("click", (element) => deletepost(element.target.parentNode, "gal"))
+    deleteButton.addEventListener("click", (element) => onDeletePost(element.target.parentNode, "gal"))
     
     deleteButton.textContent = "supprimé l'image";
 
@@ -319,9 +319,9 @@ function setGaleryListener(){
     formSubmit.addEventListener("click", onImgFormSent)
 }
 
-function deletepost(div, mode)
+function onDeletePost(div, mode)
 {
-    console.log(div, mode);
+    div.parentNode.removeChild(div);
 }
 function setIndexListener(){
     const actualizeButton = document.getElementById("actualizeArticle");
