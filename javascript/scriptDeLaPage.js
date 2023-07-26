@@ -267,20 +267,22 @@ function onArticleAdd(formTag){
 
 function onGaleryAdd()
 {
-    /*
-    const imgLink = prompt("Entrez le lien vers l'image:", "image/image basique.jpg");
-    // console.log("reçu " + imgLink);
-    if(imgLink!== null && imgLink!== "")
+    const formElement = document.querySelector("div.gallerie_imageDisplay_centered form");
+    formElement.classList.toggle("hidden")
+}
+function onImgFormSent(event)
+{
+    event.preventDefault();
+    const imgLinktag = document.querySelector("div.gallerie_imageDisplay_centered form label input");
+    const imgLink = imgLinktag.value;
+    if(imgLink!== "")
     {
         const newImgTag=createImgCustomTag(imgLink);
         const tagParent = document.getElementById("imageGalerie");
         tagParent.appendChild(newImgTag);
         galleryImage.push(newImgTag);
-
     }
-    */
-    const formElement = document.querySelector("div.gallerie_imageDisplay_centered form");
-    formElement.classList.toggle("hidden")
+    imgLinktag.value = "";
 }
 
 window.addEventListener("DOMContentLoaded", (event)=> {
@@ -291,9 +293,14 @@ window.addEventListener("DOMContentLoaded", (event)=> {
 
 function setGaleryListener(){
     const buttonViewModeMosaic = document.querySelector("img.gallerie_imageDisplay_imgPresentation_1");
-    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
-    const buttonAddImg = document.querySelector("img#imgPlus");
     buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
+    
+    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
     buttonViewModeColumn.addEventListener("click", setModeViewColumn);
+    
+    const buttonAddImg = document.querySelector("img#imgPlus");
     buttonAddImg.addEventListener("click", onGaleryAdd);
+
+    const formSubmit = document.querySelector("form.hidden button");
+    formSubmit.addEventListener("click", onImgFormSent)
 }
