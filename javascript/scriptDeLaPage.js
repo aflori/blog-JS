@@ -310,3 +310,7 @@ function setGaleryListener(){
     const formSubmit = document.querySelector("form.hidden button");
     formSubmit.addEventListener("click", onImgFormSent)
 }
+function initCaroussel()
+{
+    
+}
