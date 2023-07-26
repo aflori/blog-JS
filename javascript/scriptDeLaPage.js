@@ -33,7 +33,7 @@ function getArticleAnswer(jokeAnswer)
     return elementText;
 }
 
-function createArticle(position, articleContent)
+function createArticle(position, articleContent, addDeleteButton=true)
 {
     if(articleContent.type !== "twopart") return ;
 
@@ -45,8 +45,10 @@ function createArticle(position, articleContent)
 
     divTotal.appendChild(getArticleJoke(articleContent.setup))
     divTotal.appendChild(getArticleAnswer(articleContent.delivery))
-    divTotal.appendChild(getDeleteArticleButton());
-
+    if(addDeleteButton) {
+        divTotal.appendChild(getDeleteArticleButton());
+    }
+    
     return divTotal
 
 }
