@@ -87,10 +87,10 @@ function actualiserArticle()
 
 function headerMenuHover(hasToShow)
 {
-    const elementToShow = document.getElementById("header_links");
+    const elementToShow = document.querySelector("div#header_links")
     if(hasToShow)
     {
-        elementToShow.classList.toggle("header_hidden")
+        elementToShow.classList.remove("header_hidden")
     }
     else
     {
@@ -136,6 +136,7 @@ function createImgTag(href, name)
 
     newTag.appendChild(imgFront);
     newTag.appendChild(imgBack);
+    newTag.style.textAlign = "center";
     imgFront.src = href.front;
     imgFront.alt = name;
     imgBack.src = href.back;
@@ -151,8 +152,27 @@ function createImgTag(href, name)
 
     return newTag
 }
+function createImgCustomTag(href)
+{
+    const newTag = document.createElement("div");
+    const img = document.createElement("img");
+    const deleteButton = document.createElement("button");
 
-function getHTMLTag(data) {
+    newTag.appendChild(img);
+    newTag.appendChild(deleteButton);
+
+    newTag.className = "gallerie_imageDisplay_custom_img";
+    newTag.style.textAlign = "center";
+    newTag.style.marginBottom = "10px";
+    img.src = href;
+    img.alt = "image personalisé";
+    // deleteButton.addEventListener("click", A faire itération d'après)
+    deleteButton.textContent = "supprimé l'image";
+
+    return newTag;
+}
+
+function getHtmlImgTag(data) {
     const isShiny = (getRandomInt(128)>=127);
 
     const imgSprite = {
@@ -182,8 +202,9 @@ function createImgAndHtml(data)
             {
                 const pokeData = getImgInformation(pokemon);
                 // console.log(pokeData);
-                pokeData.htmlTag = getHTMLTag(pokeData);
+                pokeData.htmlTag = getHtmlImgTag(pokeData);
                 parentTag.appendChild(pokeData.htmlTag);
+                galleryImage.push(pokeData.htmlTag);
             });
         });
     });
@@ -244,6 +265,32 @@ function onArticleAdd(formTag){
     articleContent.value = "";
 }
 
+function onGaleryAdd()
+{
+    const formElement = document.querySelector("div.gallerie_imageDisplay_centered form");
+    formElement.classList.toggle("hidden")
+}
+function onImgFormSent(event)
+{
+    event.preventDefault();
+    const imgLinktag = document.querySelector("div.gallerie_imageDisplay_centered form label input");
+    const imgLink = imgLinktag.value;
+    const urlLinkFormat = /^https?:\/\/www./;
+    if(imgLink.match(urlLinkFormat))
+    {
+        const newImgTag=createImgCustomTag(imgLink);
+        const tagParent = document.getElementById("imageGalerie");
+        tagParent.appendChild(newImgTag);
+        imgLinktag.placeholder = ""
+        galleryImage.push(newImgTag);
+    }
+    else
+    {
+        imgLinktag.placeholder = "Entrez une URL correct!";
+    }
+    imgLinktag.value = "";
+}
+
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
     el.addEventListener("mouseover", (el) => headerMenuHover(true));
@@ -252,7 +299,14 @@ window.addEventListener("DOMContentLoaded", (event)=> {
 
 function setGaleryListener(){
     const buttonViewModeMosaic = document.querySelector("img.gallerie_imageDisplay_imgPresentation_1");
-    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
     buttonViewModeMosaic.addEventListener("click", setModeViewMosaic);
+    
+    const buttonViewModeColumn = document.querySelector("img.gallerie_imageDisplay_imgPresentation_2");
     buttonViewModeColumn.addEventListener("click", setModeViewColumn);
+    
+    const buttonAddImg = document.querySelector("img#imgPlus");
+    buttonAddImg.addEventListener("click", onGaleryAdd);
+
+    const formSubmit = document.querySelector("form.hidden button");
+    formSubmit.addEventListener("click", onImgFormSent)
 }
