@@ -87,6 +87,7 @@ body {
 
 .gallerie_carrouselPadding_img img {
     width: 150px;
+    min-width: 150px;
     height: 150px;
     margin: 0 15px;
     position: relative;
