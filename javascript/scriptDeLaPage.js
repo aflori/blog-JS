@@ -301,10 +301,19 @@ function onCarrouselAnimationEnd(divParent, turnLeft){
         divParent.appendChild(balisteToChange);
     }
 }
-function onCarrouselChange(turnLeft, informationData)
+function onCarrouselChange(turnLeft, informationData, automaticCall=false)
 {
+    if(automaticCall && informationData.callToIgnore)
+    {
+        informationData.callToIgnore = false;
+        return ;
+    }
+    else if (!automaticCall)
+    {
+        informationData.callToIgnore = true;
+    }
     informationData.position += (turnLeft?1:-1);
-    const childrens = informationData.parent.children
+    const childrens = informationData.parent.children;
     let finalAnimation;
     for(let i=0;i<childrens.length;i++)
     {
@@ -341,11 +350,12 @@ function setGaleryListener(){
     const listCarrousselButton = document.querySelectorAll("div.gallerie_carrouselPadding_buttons button");
     const dataToCarroussel = {
         parent: document.querySelector("div.gallerie_carrouselPadding_img"),
-        callToIgnore: 0,
+        callToIgnore: false,
         position: 0
     }
     listCarrousselButton[0].addEventListener("click", ()=> onCarrouselChange(true, dataToCarroussel));
     listCarrousselButton[1].addEventListener("click", ()=> onCarrouselChange(false, dataToCarroussel));
+    setInterval(onCarrouselChange, 3000, false, dataToCarroussel, true);
 }
 function createCarrouselImg(imgArray, parentElement)
 {
