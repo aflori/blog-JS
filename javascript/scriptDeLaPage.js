@@ -289,11 +289,34 @@ function onImgFormSent(event)
     }
     imgLinktag.value = "";
 }
-
+function onCarrouselAnimationEnd(divParent, turnLeft){
+    const balisteToChange = (turnLeft?divParent.lastElementChild:divParent.firstElementChild);
+    divParent.removeChild(balisteToChange);
+    if(turnLeft)
+    {
+        divParent.prepend(balisteToChange);
+    }
+    else
+    {
+        divParent.appendChild(balisteToChange);
+    }
+}
 function onCarrouselChange(turnLeft, informationData)
 {
     informationData.position += (turnLeft?1:-1);
-    console.log(informationData);
+    const childrens = informationData.parent.children
+    let finalAnimation;
+    for(let i=0;i<childrens.length;i++)
+    {
+        finalAnimation = childrens[i].animate([
+            { transform: `translateX(${turnLeft?'+':'-'}180px)`}
+        ],{
+            duration: 1000,
+            iterations: 1
+        });
+    }
+    finalAnimation.addEventListener("finish", (event) => onCarrouselAnimationEnd(informationData.parent, turnLeft));
+
 }
 
 window.addEventListener("DOMContentLoaded", (event)=> {
