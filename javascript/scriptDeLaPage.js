@@ -14,6 +14,10 @@ function getDeleteArticleButton()
     const buttonObject = document.createElement('button');
     buttonObject.textContent = "effacer l'article";
 
+    buttonObject.addEventListener("click", (element) => {
+        onDeletePost(element.target.parentNode, "post");
+    })
+
     return buttonObject;
 }
 function getArticleJoke(jokeQuestion)
@@ -32,13 +36,16 @@ function getArticleAnswer(jokeAnswer)
     elementText.appendChild(elementSmall);
     return elementText;
 }
+
 function getNewImgTag(src,name) {
     const newImage = document.createElement("img");
     newImage.src = src;
     newImage.alt = name;
     return newImage;
 }
-function createArticle(position, articleContent)
+
+function createArticle(position, articleContent, addDeleteButton=true)
+
 {
     if(articleContent.type !== "twopart") return ;
 
@@ -50,7 +57,9 @@ function createArticle(position, articleContent)
 
     divTotal.appendChild(getArticleJoke(articleContent.setup))
     divTotal.appendChild(getArticleAnswer(articleContent.delivery))
-    divTotal.appendChild(getDeleteArticleButton());
+    if(addDeleteButton) {
+        divTotal.appendChild(getDeleteArticleButton());
+    }
 
     return divTotal
 
@@ -63,7 +72,7 @@ function EcrireArticle(Database, IdStart)
         articleList = [];
         for(let i=0; i< datas.jokes.length; i++)
         {
-            articleList.push(createArticle(feed, datas.jokes[i],i));
+            articleList.push(createArticle(feed, datas.jokes[i],false));
         }
         return articleList;
     });
@@ -165,6 +174,12 @@ function createImgCustomTag(href)
     newTag.className = "gallerie_imageDisplay_custom_img";
     newTag.style.textAlign = "center";
     newTag.style.marginBottom = "10px";
+
+    img.src = href;
+    img.alt = "image personalisé";
+
+    deleteButton.addEventListener("click", (element) => onDeletePost(element.target.parentNode, "gal"))
+
     
     deleteButton.textContent = "supprimé l'image";
 
@@ -274,7 +289,7 @@ function onImgFormSent(event)
     event.preventDefault();
     const imgLinktag = document.querySelector("div.gallerie_imageDisplay_centered form label input");
     const imgLink = imgLinktag.value;
-    const urlLinkFormat = /^https?:\/\/www./;
+    const urlLinkFormat = /^https?:\/\//;
     if(imgLink.match(urlLinkFormat))
     {
         const newImgTag=createImgCustomTag(imgLink);
@@ -345,6 +360,8 @@ function setGaleryListener(){
     buttonAddImg.addEventListener("click", onGaleryAdd);
 
     const formSubmit = document.querySelector("form.hidden button");
+
+
     formSubmit.addEventListener("click", onImgFormSent);
 
     const listCarrousselButton = document.querySelectorAll("div.gallerie_carrouselPadding_buttons button");
@@ -357,6 +374,7 @@ function setGaleryListener(){
     listCarrousselButton[1].addEventListener("click", ()=> onCarrouselChange(false, dataToCarroussel));
     setInterval(onCarrouselChange, 3000, false, dataToCarroussel, true);
 }
+
 function createCarrouselImg(imgArray, parentElement)
 {
     imgArray.forEach( (img)=> {
@@ -376,4 +394,23 @@ function initCaroussel()
     ).then(
         (dataArray) => createCarrouselImg(dataArray.content, elementParent)
     )
+}
+
+
+function onDeletePost(div, mode)
+{
+    div.parentNode.removeChild(div);
+}
+function setIndexListener(){
+    const actualizeButton = document.getElementById("actualizeArticle");
+    actualizeButton.addEventListener("click",
+        (el) => {actualiserArticle()}
+    );
+    const createFormButton = document.getElementsByClassName("formCreateArticle_buttonPosition");
+    // console.log(createFormButton[0]);
+    createFormButton[0].addEventListener("click", (event) => {
+        event.preventDefault();
+        onArticleAdd("formCreateArticle");
+    });
+
 }
