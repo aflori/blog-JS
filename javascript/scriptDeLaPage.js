@@ -377,8 +377,9 @@ function setGaleryListener(){
 
 function createCarrouselImg(imgArray, parentElement)
 {
+    console.log(imgArray)
     imgArray.forEach( (img)=> {
-        const newImage = getNewImgTag(img.image, img.alt);
+        const newImage = getNewImgTag(img.image, img.name);
         parentElement.appendChild(newImage);
     })
 }
