@@ -24,9 +24,21 @@
     </header>
     <main>
         <section class="gallerie_carrouselPadding">
-            <!-- <center> -->
-                <img class="gallerie_carrouselPadding_imgSize" src="image/carrousel.jpg" alt="Image statique en attendant le carrousel">
-            <!-- </center> -->
+            <div class="gallerie_carrouselPadding_img">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+                <img src="image/image basique.jpg" alt="Image classique">
+            </div>
+            <div class="gallerie_carrouselPadding_buttons">
+                <button> &larr; </button>
+                <button> &rarr; </button>
+            </div>
         </section>
         
         <h1 class="gallerie_title"> Nos images </h1>
@@ -65,6 +77,7 @@
             {
                 getImgList();
                 setGaleryListener();
+                initCaroussel();
             }
         );
     </script>

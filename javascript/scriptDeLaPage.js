@@ -37,7 +37,15 @@ function getArticleAnswer(jokeAnswer)
     return elementText;
 }
 
+function getNewImgTag(src,name) {
+    const newImage = document.createElement("img");
+    newImage.src = src;
+    newImage.alt = name;
+    return newImage;
+}
+
 function createArticle(position, articleContent, addDeleteButton=true)
+
 {
     if(articleContent.type !== "twopart") return ;
 
@@ -137,16 +145,12 @@ function getImgInformation(pokemonObject)
 function createImgTag(href, name)
 {
     const newTag = document.createElement("div");
-    const imgFront = document.createElement("img");
-    const imgBack = document.createElement("img");
+    const imgFront = getNewImgTag(href.front,name);
+    const imgBack = getNewImgTag(href.back,name);
 
     newTag.appendChild(imgFront);
     newTag.appendChild(imgBack);
     newTag.style.textAlign = "center";
-    imgFront.src = href.front;
-    imgFront.alt = name;
-    imgBack.src = href.back;
-    imgBack.alt = name;
     imgBack.className = "hidden";
 
     newTag.addEventListener("click", tag =>{
@@ -161,7 +165,7 @@ function createImgTag(href, name)
 function createImgCustomTag(href)
 {
     const newTag = document.createElement("div");
-    const img = document.createElement("img");
+    const img = getNewImgTag(href,"image personalisé");
     const deleteButton = document.createElement("button");
 
     newTag.appendChild(img);
@@ -170,10 +174,12 @@ function createImgCustomTag(href)
     newTag.className = "gallerie_imageDisplay_custom_img";
     newTag.style.textAlign = "center";
     newTag.style.marginBottom = "10px";
+
     img.src = href;
     img.alt = "image personalisé";
 
     deleteButton.addEventListener("click", (element) => onDeletePost(element.target.parentNode, "gal"))
+
     
     deleteButton.textContent = "supprimé l'image";
 
@@ -227,7 +233,7 @@ function cleanHTML(htmlTag)
         child = htmlTag.firstElementChild;
     }
 }
-async function getImgList(){
+function getImgList(){
     const imgURL = "https://pokeapi.co/api/v2/pokemon/";
     fetch(imgURL).then(
         rawData => rawData.json()
@@ -298,6 +304,44 @@ function onImgFormSent(event)
     }
     imgLinktag.value = "";
 }
+function onCarrouselAnimationEnd(divParent, turnLeft){
+    const balisteToChange = (turnLeft?divParent.lastElementChild:divParent.firstElementChild);
+    divParent.removeChild(balisteToChange);
+    if(turnLeft)
+    {
+        divParent.prepend(balisteToChange);
+    }
+    else
+    {
+        divParent.appendChild(balisteToChange);
+    }
+}
+function onCarrouselChange(turnLeft, informationData, automaticCall=false)
+{
+    if(automaticCall && informationData.callToIgnore)
+    {
+        informationData.callToIgnore = false;
+        return ;
+    }
+    else if (!automaticCall)
+    {
+        informationData.callToIgnore = true;
+    }
+    informationData.position += (turnLeft?1:-1);
+    const childrens = informationData.parent.children;
+    let finalAnimation;
+    for(let i=0;i<childrens.length;i++)
+    {
+        finalAnimation = childrens[i].animate([
+            { transform: `translateX(${turnLeft?'+':'-'}180px)`}
+        ],{
+            duration: 1000,
+            iterations: 1
+        });
+    }
+    finalAnimation.addEventListener("finish", (event) => onCarrouselAnimationEnd(informationData.parent, turnLeft));
+
+}
 
 window.addEventListener("DOMContentLoaded", (event)=> {
     const el = document.getElementById("dynamicMenue");
@@ -316,8 +360,42 @@ function setGaleryListener(){
     buttonAddImg.addEventListener("click", onGaleryAdd);
 
     const formSubmit = document.querySelector("form.hidden button");
-    formSubmit.addEventListener("click", onImgFormSent)
+
+
+    formSubmit.addEventListener("click", onImgFormSent);
+
+    const listCarrousselButton = document.querySelectorAll("div.gallerie_carrouselPadding_buttons button");
+    const dataToCarroussel = {
+        parent: document.querySelector("div.gallerie_carrouselPadding_img"),
+        callToIgnore: false,
+        position: 0
+    }
+    listCarrousselButton[0].addEventListener("click", ()=> onCarrouselChange(true, dataToCarroussel));
+    listCarrousselButton[1].addEventListener("click", ()=> onCarrouselChange(false, dataToCarroussel));
+    setInterval(onCarrouselChange, 3000, false, dataToCarroussel, true);
 }
+
+function createCarrouselImg(imgArray, parentElement)
+{
+    imgArray.forEach( (img)=> {
+        const newImage = getNewImgTag(img.image, img.alt);
+        parentElement.appendChild(newImage);
+    })
+}
+function initCaroussel()
+{
+    const apiImgLink = "https://www.digi-api.com/api/v1/digimon?pageSize=20";
+    
+    const elementParent = document.querySelector("div.gallerie_carrouselPadding_img")
+    cleanHTML(elementParent);
+
+    fetch(apiImgLink).then(
+        (element) => element.json()
+    ).then(
+        (dataArray) => createCarrouselImg(dataArray.content, elementParent)
+    )
+}
+
 
 function onDeletePost(div, mode)
 {
@@ -334,4 +412,5 @@ function setIndexListener(){
         event.preventDefault();
         onArticleAdd("formCreateArticle");
     });
+
 }
